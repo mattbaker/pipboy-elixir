@@ -36,6 +36,8 @@ A custom Stream that pulls from STDIN, then extracts and emits tuples representi
 ### PipUpdate
 Parsing functions for parsing Pipboy messages of type 3 a.k.a. data updates. Data updates are the most interesting form of data the Pipboy sends, and also the most complicated to parse.
 
+Small examples of these parsing functions can be found in the tests (`pip_update_test.exs`).
+
 ### PipParser
 
 Right now there's a single `run` function in PipParser that shows a pipeline streaming data from STDIN, selecting messages of type 3, parsing the data upates, and printing them.
