@@ -3,7 +3,6 @@ defmodule PipUpdate do
 
   defstruct type: nil, id: nil, contents: nil
 
-
   def extract_updates(body) when byte_size(body) > 0 do
     <<
       type_int    :: uint8_value,
@@ -21,21 +20,46 @@ defmodule PipUpdate do
     []
   end
 
-  def extract_update_info(type, bytes) do
-    case type do
-      :bool ->
-        uint8(bit, rest) = bytes
-        value = bit == 1
-      :string      -> {value, rest} = extract_string(bytes)
-      :list        -> {value, rest} = extract_list(bytes, &extract_reference/1)
-      :dict_update -> {value, rest} = extract_dictionary_update(bytes)
-      :sint8       -> sint8(value, rest)   = bytes
-      :uint8       -> uint8(value, rest)   = bytes
-      :sint32      -> sint32(value, rest)  = bytes
-      :uint32      -> uint32(value, rest)  = bytes
-      :float32     -> float32(value, rest) = bytes
-    end
+  def extract_update_info(:bool, bytes) do
+    uint8(bit, rest) = bytes
+    value = bit == 1
+    {value, rest}
+  end
 
+  def extract_update_info(:string, bytes) do
+    extract_string(bytes)
+  end
+
+  def extract_update_info(:list, bytes) do
+    extract_list(bytes, &extract_reference/1)
+  end
+
+  def extract_update_info(:dict_update, bytes) do
+    extract_dictionary_update(bytes)
+  end
+
+  def extract_update_info(:sint8, bytes) do
+    sint8(value, rest) = bytes
+    {value, rest}
+  end
+
+  def extract_update_info(:uint8, bytes) do
+    uint8(value, rest) = bytes
+    {value, rest}
+  end
+
+  def extract_update_info(:sint32, bytes) do
+    sint32(value, rest) = bytes
+    {value, rest}
+  end
+
+  def extract_update_info(:uint32, bytes) do
+    uint32(value, rest) = bytes
+    {value, rest}
+  end
+
+  def extract_update_info(:float32, bytes) do
+    float32(value, rest) = bytes
     {value, rest}
   end
 
