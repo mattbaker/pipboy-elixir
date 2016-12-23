@@ -1,8 +1,12 @@
 # PipParser
 
-This is an Elixir version of a parser for the [Fallout 4 Pipboy protocol](https://github.com/mattbaker/pipboy-explorations). It's also my attempt at learning Elixir.
+This is an Elixir version of a parser for the Fallout 4 Pipboy protocol. It's also a chance to learn more about Elixir. My more complete implementation in Ruby can be found [here](https://github.com/mattbaker/pipboy-explorations), along with details on the protocol itself.
 
-It's by no means complete, but it does successfully parse messages from a binary stream, and will additionally parse messages of type 3 (data updates).
+The Elixir version successfully parses messages from a binary stream, and will additionally parse messages of type 3 into full data updates.
+
+Elixir's binary pattern matching turned out to be a stellar choice, and made parsing the binary stream far easier than Ruby. No surprise given Erlang's roots. 
+
+I also (for better or for worse) got to learn a little bit about macros.
 
 ## Running it
 
